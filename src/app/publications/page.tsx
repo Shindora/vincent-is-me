@@ -8,7 +8,7 @@ export default function Publications() {
             <div className="flex items-start">
               <span className="text-cyber-green mr-2">[{index + 1}]</span>
               <div>
-                <h2 className="text-xl text-cyber-pink mb-2">"{pub.title}"</h2>
+                <h2 className="text-xl text-cyber-pink mb-2">“{pub.title}”</h2>
                 <p className="text-cyber-blue">{pub.venue}</p>
                 <p className="text-cyber-green mt-2">DOI: {pub.doi}</p>
               </div>
@@ -20,8 +20,7 @@ export default function Publications() {
   );
 }
 
-const publications = [
-  {
+const publications = [  {
     title: "Build a search engine for the knowledge of the course about Introduction to Programming based on ontology Rela-model",
     venue: "2020 12th International Conference on Knowledge and Systems Engineering (KSE), pp. 207-212",
     doi: "10.1109/KSE50997.2020.9287775"
