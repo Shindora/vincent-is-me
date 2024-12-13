@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cyber-black: #0a0a0a;
+  --cyber-green: #00ff41;
+  --cyber-blue: #0ff;
+  --cyber-pink: #ff00ff;
+  --matrix-bg: rgba(0, 15, 0, 0.95);
+}
+
+body {
+  background-color: var(--cyber-black);
+  color: var(--cyber-green);
+  font-family: 'Courier New', monospace;
+}
+
+.terminal-background {
+  background: var(--matrix-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 255, 65, 0.03) 50%,
+    rgba(0, 255, 65, 0.02) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitch 1s infinite;
+  text-shadow: 
+    0 0 5px var(--cyber-green),
+    0 0 10px var(--cyber-green),
+    0 0 15px var(--cyber-green);
+}
+.terminal-line {
+  opacity: 0;
+  color: var(--cyber-green);
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+.terminal-line:nth-child(1) { animation-delay: 0.1s; }
+.terminal-line:nth-child(2) { animation-delay: 0.2s; }
+.terminal-line:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.terminal-header {
+  border-bottom: 2px solid var(--cyber-green);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(20);
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 
+      2px 0 var(--cyber-pink),
+      -2px 0 var(--cyber-blue);
+  }
+  25% {
+    text-shadow: 
+      -2px 0 var(--cyber-pink),
+      2px 0 var(--cyber-blue);
+  }
+  50% {
+    text-shadow: 
+      2px 0 var(--cyber-green),
+      -2px 0 var(--cyber-pink);
+  }
+  100% {
+    text-shadow: 
+      -2px 0 var(--cyber-blue),
+      2px 0 var(--cyber-green);
+  }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.terminal-window {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--cyber-green);
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+.terminal-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.terminal-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-circle.red { background: #ff5f56; }
+.terminal-circle.yellow { background: #ffbd2e; }
+.terminal-circle.green { background: #27c93f; }
