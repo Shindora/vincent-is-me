@@ -5,9 +5,6 @@ export default function Publications() {
       <div className="space-y-6">
         {publications.map((pub, index) => (
           <div key={index} className="terminal-window p-4">
-
-
-
             <div className="flex items-start">
               <span className="text-cyber-green mr-2">[{index + 1}]</span>
               <div>
@@ -25,16 +22,10 @@ export default function Publications() {
 
 const publications = [
   {
-
-
-
-
     title: "Build a search engine for the knowledge of the course about Introduction to Programming based on ontology Rela-model",
     venue: "2020 12th International Conference on Knowledge and Systems Engineering (KSE), pp. 207-212",
     doi: "10.1109/KSE50997.2020.9287775"
   },
-
-
   {
     title: "Ontology-based Integration of Knowledge Base for Building an Intelligent Searching Chatbot",
     venue: "Sensors and Materials 33 (2021), p. 3101",

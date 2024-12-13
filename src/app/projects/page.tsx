@@ -49,6 +49,14 @@ const projects = [
     github: "https://github.com/Shindora/data-stack-dagster-dbt-superset"
   },
   {
+    title: "Data streaming with Redpanda and Quix template",
+    tech: "Python, Redpanda, Quix",
+    description: [
+      "Developed a Python-based data streaming pipeline using Redpanda and Quix, enabling real-time data processing and analysis."
+    ],
+    github: "https://github.com/Shindora/redpanda-quix-processing-streaming-data"
+  },
+  {
     title: "Denoising Diffusion Models for Medical Images",
     tech: "PyTorch, Stable Diffusion, Computer Vision",
     description: [
