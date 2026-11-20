@@ -4,14 +4,14 @@ import { GOATCOUNTER_CODE, pagePaths } from "@/content";
 import { Band } from "../ui";
 
 export const metadata: Metadata = { title: "Visitors" };
-export const revalidate = 3600;
+export const revalidate = 300;
 
 const fmt = new Intl.NumberFormat("en-US");
 
 async function visitors(path: string, start?: "week" | "month"): Promise<number | null> {
   const url = `https://${GOATCOUNTER_CODE}.goatcounter.com/counter/${encodeURIComponent(path)}.json${start ? `?start=${start}` : ""}`;
   try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(url, { next: { revalidate: 300 } });
     if (res.status === 404) return 0;
     if (!res.ok) return null;
     const { count } = (await res.json()) as { count: string };
