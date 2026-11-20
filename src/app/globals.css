@@ -222,7 +222,7 @@ h1, h2, h3, p { margin: 0; }
 .toc a .mono { color: var(--data); font-size: 12px; }
 .toc a:hover { color: var(--ink); }
 
-.prose { max-width: 700px; font-size: 17px; line-height: 1.75; color: var(--text-2); padding-bottom: 112px; counter-reset: h2; }
+.prose { min-width: 0; overflow-wrap: break-word; max-width: 700px; font-size: 17px; line-height: 1.75; color: var(--text-2); padding-bottom: 112px; counter-reset: h2; }
 .prose p, .prose ul, .prose ol { margin: 0 0 20px; }
 .prose ul, .prose ol { padding-left: 22px; }
 .prose li { margin-bottom: 8px; }
@@ -286,7 +286,7 @@ h1, h2, h3, p { margin: 0; }
   .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .principle:nth-child(3) { border-left: 0; }
   .principle:nth-child(n + 3) { border-top: 1px solid var(--rule); }
-  .post-grid { grid-template-columns: 1fr; gap: 0; padding-top: 48px; }
+  .post-grid { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 48px; }
   .toc { display: none; }
 }
 
@@ -306,4 +306,14 @@ h1, h2, h3, p { margin: 0; }
   .pub { grid-template-columns: 1fr; gap: 4px; }
   .stat-value { font-size: 36px; }
   .tile { padding: 24px; }
+  .prose { font-size: 16px; }
+  .prose h2 { margin-top: 48px; font-size: 21px; }
+  .prose pre { margin-left: -20px; margin-right: -20px; border-radius: 0; border-left: 0; border-right: 0; padding: 18px 20px; }
+  .prose table { display: block; overflow-x: auto; white-space: normal; }
+  .prose th, .prose td { min-width: 120px; }
+  .prose .tldr { padding: 16px 18px 2px; }
+  .diagram-scroll { margin: 0 -20px; padding: 12px; border-radius: 0; border-left: 0; border-right: 0; }
+  .diagram svg { min-width: 480px; }
+  .diagram figcaption::before { content: "Swipe to see the whole diagram. "; font-weight: 600; }
+  .prose pre code { font-size: 12.5px; }
 }
