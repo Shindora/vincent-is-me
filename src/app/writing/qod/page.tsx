@@ -11,7 +11,6 @@ const SECTIONS = [
   ["doors", "Every door, same rules"],
   ["ops", "Runs like a warehouse"],
   ["fit", "When to use it"],
-  ["start", "Get started"],
 ] as const;
 
 export default function Qod() {
@@ -134,17 +133,6 @@ export default function Qod() {
         Trino or Dremio.
       </p>
 
-      <h2 id="start">Get started</h2>
-      <p>
-        The pattern is worth copying even if you never run it: governance lives in the data plane, and agents get the
-        same rules as people instead of a side door. To try it, run <code>uvx qod@latest serve --demo</code>.
-      </p>
-      <p>
-        qod is built by the team at <a href="https://github.com/starlake-ai">Starlake</a>. Start with the{" "}
-        <a href="https://github.com/starlake-ai/qod">repository</a> and the{" "}
-        <a href="https://docs.starlake.ai/qod">documentation</a>, ask on{" "}
-        <a href="https://discord.gg/xHj9D6Rebp">Discord</a>, or pick an issue labelled <code>good first issue</code>.
-      </p>
     </Post>
   );
 }
