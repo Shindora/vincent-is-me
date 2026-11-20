@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
+import { GOATCOUNTER_CODE } from "@/content";
 import { Tracker } from "./client";
 import "./globals.css";
 
-const GOATCOUNTER = process.env.NEXT_PUBLIC_GOATCOUNTER_CODE;
 
 const sans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sans" });
 const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono" });
@@ -45,9 +45,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </footer>
-        {GOATCOUNTER && (
+        {GOATCOUNTER_CODE && (
           <>
-            <Script data-goatcounter={`https://${GOATCOUNTER}.goatcounter.com/count`} src="https://gc.zgo.at/count.js" />
+            <Script data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`} src="https://gc.zgo.at/count.js" />
             <Tracker />
           </>
         )}

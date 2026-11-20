@@ -1,3 +1,5 @@
+export const GOATCOUNTER_CODE = process.env.NEXT_PUBLIC_GOATCOUNTER_CODE || "vincentisme";
+
 export type Tag = "data" | "ai";
 
 export const principles = [

@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import { pagePaths } from "@/content";
+import { GOATCOUNTER_CODE, pagePaths } from "@/content";
 import { Band } from "../ui";
 
 export const metadata: Metadata = { title: "Visitors" };
 export const revalidate = 3600;
 
-const CODE = process.env.NEXT_PUBLIC_GOATCOUNTER_CODE;
 const fmt = new Intl.NumberFormat("en-US");
 
 async function visitors(path: string, start?: "week" | "month"): Promise<number | null> {
-  const url = `https://${CODE}.goatcounter.com/counter/${encodeURIComponent(path)}.json${start ? `?start=${start}` : ""}`;
+  const url = `https://${GOATCOUNTER_CODE}.goatcounter.com/counter/${encodeURIComponent(path)}.json${start ? `?start=${start}` : ""}`;
   try {
     const res = await fetch(url, { next: { revalidate: 3600 } });
     if (res.status === 404) return 0;
@@ -23,7 +22,7 @@ async function visitors(path: string, start?: "week" | "month"): Promise<number 
 }
 
 export default async function Visitors() {
-  const [total, month, week, ...perPage] = CODE
+  const [total, month, week, ...perPage] = GOATCOUNTER_CODE
     ? await Promise.all([
         visitors("TOTAL"),
         visitors("TOTAL", "month"),
@@ -55,7 +54,11 @@ export default async function Visitors() {
       <div className="wrap">
         {total === null ? (
           <section className="section section-last">
-            <p className="note">The counter is not reachable right now, so there is nothing to show.</p>
+            <p className="note">
+              {GOATCOUNTER_CODE
+                ? "The counter is not reachable right now, so there is nothing to show."
+                : "Counting has not started yet. Real numbers will appear here once the counter is connected."}
+            </p>
           </section>
         ) : (
           <>
