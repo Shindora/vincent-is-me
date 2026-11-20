@@ -37,6 +37,7 @@ export const projects: {
   lang: string;
   meta: string;
   summary: string;
+  post?: string;
 }[] = [
   {
     name: "redcrab",
@@ -44,6 +45,7 @@ export const projects: {
     tags: ["data"],
     lang: "Rust",
     meta: "author · pre-alpha",
+    post: "redcrab",
     summary:
       "A streaming broker that speaks the Kafka wire protocol, written from scratch in Rust. One binary, no JVM, Raft replication per partition.",
   },
@@ -53,6 +55,7 @@ export const projects: {
     tags: ["ai"],
     lang: "Python",
     meta: "author · llm-d 1.0",
+    post: "llmdup",
     summary:
       "From a Kubernetes cluster to a working llm-d endpoint in one command. A k9s-style TUI, a JSON CLI and an MCP server over one core.",
   },
@@ -62,6 +65,7 @@ export const projects: {
     tags: ["data", "ai"],
     lang: "Rust",
     meta: "author · private",
+    post: "unbyte-architecture",
     summary:
       "Decodes Solana programs into data people and agents can read, including closed ones with no IDL. A model proposes layouts; a validator decides.",
   },
@@ -85,6 +89,26 @@ export const posts: {
   blurb: string;
   summary: string;
 }[] = [
+  {
+    slug: "llmdup",
+    title: "llmdup: from a Kubernetes cluster to a working llm-d endpoint in one command",
+    date: "2026-11-20",
+    readingTime: "5 min",
+    tags: ["ai"],
+    blurb: "Try llm-d on a laptop in two minutes with no GPU, then run the same plan on your cluster. For people, scripts and agents.",
+    summary:
+      "llm-d 1.0 ships every well-lit path as a machine-readable recipe. llmdup runs those recipes for you: a terminal UI for people, a JSON CLI for scripts and an MCP server for agents.",
+  },
+  {
+    slug: "redcrab",
+    title: "redcrab: a Kafka-compatible broker in Rust, built benchmark-first",
+    date: "2026-11-20",
+    readingTime: "5 min",
+    tags: ["data"],
+    blurb: "One binary, no JVM, Raft per partition, tested with the stock Kafka tools. Pre-alpha, and looking for people to break it.",
+    summary:
+      "A clean-room streaming broker that speaks the Kafka wire protocol, written from the public protocol docs and the Raft paper, with the benchmark built before the broker.",
+  },
   {
     slug: "agent-harness",
     title: "How to build and evaluate an agent harness",

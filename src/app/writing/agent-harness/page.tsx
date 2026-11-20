@@ -132,19 +132,25 @@ export default function AgentHarness() {
   );
 }
 
-const LOOP = `def run_agent(task: str, model: Model, tools: Toolbox, trace: Path, max_turns: int = 30) -> Run:
-    """Run one task until the model stops calling tools or the turn limit is hit."""
+const LOOP = `def run_agent(
+    task: str,
+    model: Model,
+    tools: Toolbox,
+    trace: Path,
+    max_turns: int = 30,
+) -> Run:
+    """Run one task until the model stops calling tools or hits the turn limit."""
     run = Run(messages=[{"role": "user", "content": task}])
     with trace.open("a") as log:
         for turn in range(1, max_turns + 1):
             reply = model.complete(run.messages, tools=tools.specs())
             run.messages.append(reply.message)
-            log.write(json.dumps({"turn": turn, "message": reply.message, "usage": reply.usage}) + "\\n")
+            entry = {"turn": turn, "message": reply.message, "usage": reply.usage}
+            log.write(json.dumps(entry) + "\\n")
             if not reply.tool_calls:
                 return run.finish("done", turns=turn)
             for call in reply.tool_calls:
-                result = tools.execute(call)
-                run.messages.append({"role": "tool", "tool_call_id": call.id, "content": result})
+                run.add_tool_result(call.id, tools.execute(call))
     return run.finish("max_turns", turns=max_turns)`;
 
 const EXECUTE = `def execute(self, call: ToolCall) -> str:
@@ -155,10 +161,11 @@ const EXECUTE = `def execute(self, call: ToolCall) -> str:
     try:
         output = tool.run(**call.args)
     except Exception as e:  # noqa: BLE001 - the model has to see every failure
-        return f"error: {call.name} failed: {e}. Arguments must match: {tool.schema}"
-    if len(output) > LIMIT:
-        return f"{output[:LIMIT]}\\n[truncated: showed {LIMIT:,} of {len(output):,} characters]"
-    return output`;
+        return f"error: {call.name} failed: {e}. Expected: {tool.schema}"
+    if len(output) <= LIMIT:
+        return output
+    note = f"[truncated: showed {LIMIT:,} of {len(output):,} characters]"
+    return f"{output[:LIMIT]}\\n{note}"`;
 
 const TASK = `@dataclass(frozen=True)
 class Task:
@@ -169,6 +176,7 @@ class Task:
 
 const SCORE = `def score(results: dict[str, list[bool]]) -> tuple[float, float]:
     """Return (pass@1, pass^k) from each task's run outcomes."""
-    pass_at_1 = sum(sum(runs) / len(runs) for runs in results.values()) / len(results)
+    rates = [sum(runs) / len(runs) for runs in results.values()]
+    pass_at_1 = sum(rates) / len(rates)
     pass_all = sum(all(runs) for runs in results.values()) / len(results)
     return pass_at_1, pass_all`;

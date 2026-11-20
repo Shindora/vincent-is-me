@@ -69,6 +69,11 @@ export function ProjectCards({ limit }: { limit?: number }) {
             <p className="card-meta mono">
               <span className="lang-dot" style={{ background: LANG_COLORS[p.lang] }} />
               {p.lang} · {p.meta}
+              {p.post && (
+                <Link href={`/writing/${p.post}`} className="card-post">
+                  Read the post →
+                </Link>
+              )}
             </p>
           </div>
         </article>
