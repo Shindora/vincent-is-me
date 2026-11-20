@@ -1,3 +1,4 @@
+import { HarnessEval, HarnessLoop } from "../diagrams";
 import { Post, postMetadata } from "../post";
 
 export const metadata = postMetadata("agent-harness");
@@ -30,6 +31,7 @@ export default function AgentHarness() {
         the system prompt, the tools and the shape of their output, what gets dropped when the context fills up, what
         needs permission, and when the run ends.
       </p>
+      <HarnessLoop />
       <p>
         Swap the model under a good harness and you get a slightly better or worse agent. Swap the harness and you can
         get a different product.
@@ -74,6 +76,7 @@ export default function AgentHarness() {
       <pre>
         <code>{TASK}</code>
       </pre>
+      <HarnessEval />
       <ul>
         <li>Take tasks from real failures. Forty from real use beat a thousand generated ones.</li>
         <li>

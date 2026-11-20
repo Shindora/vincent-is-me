@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UnbyteFlow } from "../diagrams";
 import { Post, postMetadata } from "../post";
 
 export const metadata = postMetadata("unbyte-architecture");
@@ -45,9 +46,7 @@ export default function UnbyteArchitecture() {
       </p>
 
       <h2 id="design">The design in one picture</h2>
-      <pre>
-        <code>{DIAGRAM}</code>
-      </pre>
+      <UnbyteFlow />
       <ul>
         <li>
           <strong>No model on the answer path.</strong> Inference is a build cost of the registry, paid once per program
@@ -151,13 +150,3 @@ export default function UnbyteArchitecture() {
   );
 }
 
-const DIAGRAM = ` batch: CLI, local or CI                  serving: Cloudflare
- ─────────────────────────                ───────────────────────────
- BigQuery samples ──┐                     Worker + wasm decoder
- RPC transactions ──┼─► tiers 0–3         MCP endpoint
- model proposes ────┘   validator  ─────► R2  IDLs, test vectors
-                        decides           D1  registry metadata
-                                          Cron + Queues  upgrade watch
-                                                   │
-                                                   ▼
-                                    agents · wallets · explorers`;

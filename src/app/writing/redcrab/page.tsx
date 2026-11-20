@@ -1,3 +1,4 @@
+import { RedcrabCluster } from "../diagrams";
 import { Post, postMetadata } from "../post";
 
 export const metadata = postMetadata("redcrab");
@@ -57,6 +58,7 @@ export default function Redcrab() {
         Create a topic with replication factor 3 and the leaders spread across the three nodes. The cluster survives the
         loss of any one node, and a node restarted with the same flags and data directory catches up on its own.
       </p>
+      <RedcrabCluster />
 
       <h2 id="status">What works, and what does not yet</h2>
       <p>

@@ -77,6 +77,7 @@ export const projects: {
     tags: ["data", "ai"],
     lang: "Scala",
     meta: "contributor · starlake-ai",
+    post: "qod",
     summary:
       "An agent-safe SQL gateway for DuckDB and DuckLake: row and column security inside the engine, with Flight SQL, MCP and native DuckDB.",
   },
@@ -91,6 +92,16 @@ export const posts: {
   blurb: string;
   summary: string;
 }[] = [
+  {
+    slug: "qod",
+    title: "qod: one governed door to DuckDB and DuckLake, for people and agents",
+    date: "2026-11-20",
+    readingTime: "5 min",
+    tags: ["data", "ai"],
+    blurb: "The serving layer DuckLake leaves out: users, grants, row and column security, and branches agents write on while a human merges.",
+    summary:
+      "Quack on Demand turns a DuckLake lakehouse into a multi-tenant SQL warehouse: security decided inside the engine, Flight SQL, native DuckDB and MCP on the wire, and one command to try it.",
+  },
   {
     slug: "llmdup",
     title: "llmdup: from a Kubernetes cluster to a working llm-d endpoint in one command",

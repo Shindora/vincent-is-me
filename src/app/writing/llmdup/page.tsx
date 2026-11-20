@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LlmdupFlow } from "../diagrams";
 import { Post, postMetadata } from "../post";
 
 export const metadata = postMetadata("llmdup");
@@ -112,6 +113,7 @@ export default function Llmdup() {
       </figure>
 
       <h2 id="frontends">One core, three front ends</h2>
+      <LlmdupFlow />
       <ul>
         <li>
           <strong>Terminal UI for people.</strong> Run <code>llmdup</code> with no arguments. k9s keys; plan, deploy with
