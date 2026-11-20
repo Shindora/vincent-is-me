@@ -11,7 +11,7 @@ declare global {
 }
 
 const LINKS = [
-  { href: "/#work", label: "Work", active: (p: string) => p === "/" },
+  { href: "/projects", label: "Projects", active: (p: string) => p.startsWith("/projects") },
   { href: "/writing", label: "Writing", active: (p: string) => p.startsWith("/writing") },
   { href: "/#publications", label: "Publications", active: () => false },
   { href: "/visitors", label: "Visitors", active: (p: string) => p === "/visitors" },

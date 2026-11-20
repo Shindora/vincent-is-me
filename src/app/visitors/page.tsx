@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { pagePaths } from "@/content";
+import { Band } from "../ui";
 
 export const metadata: Metadata = { title: "Visitors" };
 export const revalidate = 3600;
@@ -30,58 +32,59 @@ export default async function Visitors() {
       ])
     : [null, null, null];
   const cells = [
-    ["All time", total],
-    ["Last 30 days", month],
-    ["Last 7 days", week],
+    ["All time", total, "ink"],
+    ["Last 30 days", month, "data"],
+    ["Last 7 days", week, "ai"],
   ] as const;
   const pages = pagePaths.map((path, i) => ({ path, count: perPage[i] ?? 0 })).sort((a, b) => b.count - a.count);
+  const top = Math.max(1, ...pages.map((p) => p.count));
 
   return (
     <>
-      <div className="grid page-head">
-        <span />
-        <div>
-          <h1 className="title">Visitors</h1>
-          <p className="dek">
+      <Band>
+        <div className="page-head">
+          <p className="kicker mono">Visitors</p>
+          <h1 className="page-title">Who reads this, counted honestly.</h1>
+          <p className="page-dek">
             Real counts from GoatCounter, a small open-source counter that uses no cookies and does not keep IP
             addresses. Known bots are left out.
           </p>
         </div>
-      </div>
+      </Band>
 
-      {total === null ? (
-        <section className="grid row">
-          <span />
-          <p className="note">The counter is not reachable right now, so there is nothing to show.</p>
-        </section>
-      ) : (
-        <>
-          <div className="grid" style={{ paddingBottom: 56 }}>
-            <span />
-            <div className="stats">
-              {cells.map(([label, value]) => (
-                <div key={label} className="stat">
-                  <p className="stat-label">{label}</p>
-                  <p className="stat-value mono num">{value === null ? "–" : fmt.format(value)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <section className="grid row">
-            <h2 className="label">By page</h2>
-            <div className="pages">
-              {pages.map((p) => (
-                <div key={p.path} className="page-row mono">
-                  <span>{p.path}</span>
-                  <span className="num">{fmt.format(p.count)}</span>
-                </div>
-              ))}
-              <p className="note">GoatCounter caches these numbers for up to four hours.</p>
-            </div>
+      <div className="wrap">
+        {total === null ? (
+          <section className="section section-last">
+            <p className="note">The counter is not reachable right now, so there is nothing to show.</p>
           </section>
-        </>
-      )}
+        ) : (
+          <>
+            <section className="section">
+              <div className="stats">
+                {cells.map(([label, value, mark]) => (
+                  <div key={label} className="stat">
+                    <span className={`mark mark-${mark}`} aria-hidden="true" />
+                    <p className="stat-label">{label}</p>
+                    <p className="stat-value mono">{value === null ? "–" : fmt.format(value)}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section className="section section-last">
+              <p className="section-n mono">By page</p>
+              <div className="pages">
+                {pages.map((p) => (
+                  <div key={p.path} className="page-row mono" style={{ "--w": `${(p.count / top) * 100}%` } as CSSProperties}>
+                    <span className="page-path">{p.path}</span>
+                    <span className="page-count">{fmt.format(p.count)}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="note">GoatCounter caches these numbers for up to four hours.</p>
+            </section>
+          </>
+        )}
+      </div>
     </>
   );
 }

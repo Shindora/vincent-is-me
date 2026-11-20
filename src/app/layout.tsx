@@ -2,36 +2,49 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
-import { Nav, Tracker } from "./client";
+import { Tracker } from "./client";
 import "./globals.css";
 
 const GOATCOUNTER = process.env.NEXT_PUBLIC_GOATCOUNTER_CODE;
 
-const sans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
+const sans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sans" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: { default: "Vincent Tran", template: "%s · Vincent Tran" },
-  description: "Data and AI engineer. Data and AI as one system, judged by the business outcome it moves.",
+  title: { default: "Vincent Tran · Data and AI engineer", template: "%s · Vincent Tran" },
+  description: "Data and AI, built as one system, and judged by the business outcome it moves.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
-        <div className="wrap">
-          <header className="header">
-            <Link href="/" className="brand">
-              Vincent Tran
-            </Link>
-            <Nav />
-          </header>
-          <main>{children}</main>
-          <footer className="footer mono">
-            <span>© {new Date().getFullYear()} Vincent Tran</span>
-            <Link href="/visitors">Visitors</Link>
-          </footer>
-        </div>
+        <main>{children}</main>
+        <footer className="band">
+          <div className="wrap footer">
+            <div className="foot-grid">
+              <div>
+                <h2 className="foot-title">Let’s talk data and AI.</h2>
+                <p className="foot-sub">Email is the fastest way to reach me.</p>
+              </div>
+              <div className="foot-links">
+                <a href="mailto:vincent.tran.data@gmail.com">
+                  vincent.tran.data@gmail.com <span className="t-ai" aria-hidden="true">→</span>
+                </a>
+                <a href="https://github.com/Shindora">
+                  GitHub <span className="t-data" aria-hidden="true">↗</span>
+                </a>
+                <a href="https://www.linkedin.com/in/tuan-vi-tran/">
+                  LinkedIn <span className="t-data" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+            <div className="foot-bottom mono">
+              <span>© {new Date().getFullYear()} Vincent Tran</span>
+              <Link href="/visitors">Visitors</Link>
+            </div>
+          </div>
+        </footer>
         {GOATCOUNTER && (
           <>
             <Script data-goatcounter={`https://${GOATCOUNTER}.goatcounter.com/count`} src="https://gc.zgo.at/count.js" />

@@ -1,86 +1,86 @@
 import Link from "next/link";
-import { posts, principles, projects, publications } from "@/content";
+import { principles, publications } from "@/content";
+import { Band, PostTiles, ProjectCards, SectionHead, SystemPanel } from "./ui";
 
 export default function Home() {
   return (
     <>
-      <section className="intro">
-        <p className="lede">
-          Data and AI engineer. I treat data and AI as one system, and I judge it by the business outcome it moves, not by
-          the model inside it.
-        </p>
-        <p className="stack mono">Rust · Python · TypeScript · Scala · Kafka · DuckDB · Kubernetes</p>
-      </section>
-
-      <section className="grid row">
-        <h2 className="label">How I work</h2>
-        <div className="principles">
-          {principles.map(([lead, text]) => (
-            <p key={lead}>
-              <strong>{lead}</strong> {text}
+      <Band>
+        <div className="hero">
+          <div>
+            <p className="kicker mono">Data &amp; AI engineer</p>
+            <h1 className="headline">
+              <span className="t-data">Data</span> and <span className="t-ai">AI</span>, built as one system.
+            </h1>
+            <p className="hero-sub">
+              I build streaming systems, query engines and LLM infrastructure, and I judge them by the business outcome
+              they move, not by the model inside.
             </p>
-          ))}
-        </div>
-      </section>
-
-      <section id="work" className="grid row">
-        <h2 className="label">Selected work</h2>
-        <div>
-          {projects.map((p) => (
-            <article key={p.name} className="item">
-              {p.url ? (
-                <a href={p.url} className="item-name">
-                  {p.name}
-                </a>
-              ) : (
-                <span className="item-name">{p.name}</span>
-              )}
-              <p className="item-text">{p.summary}</p>
-              <p className="meta mono">
-                {p.meta[0]}
-                <br />
-                {p.meta[1]}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="writing" className="grid row">
-        <h2 className="label">Writing</h2>
-        <div>
-          {posts.map((p) => (
-            <Link key={p.slug} href={`/writing/${p.slug}`} className="post-link">
-              <span className="date mono">{p.date}</span>
-              <span className="post-title">{p.title}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section id="publications" className="grid row">
-        <h2 className="label">Publications</h2>
-        <div>
-          {publications.map((p) => (
-            <div key={p.title} className="pub">
-              <span className="year mono">{p.year}</span>
-              <div>
-                {p.doi ? <a href={`https://doi.org/${p.doi}`}>{p.title}</a> : <p>{p.title}</p>}
-                <p className="venue">{p.venue}</p>
-              </div>
+            <div className="cta">
+              <a href="#work" className="btn btn-primary">
+                See the work <span aria-hidden="true">→</span>
+              </a>
+              <Link href="/writing" className="btn btn-ghost">
+                Read the writing
+              </Link>
             </div>
-          ))}
+          </div>
+          <SystemPanel />
         </div>
-      </section>
+      </Band>
 
-      <section className="grid row">
-        <h2 className="label">Elsewhere</h2>
-        <div className="links">
-          <a href="https://github.com/Shindora">GitHub</a>
-          <a href="https://www.linkedin.com/in/tuan-vi-tran/">LinkedIn</a>
-          <a href="mailto:vincent.tran.data@gmail.com">vincent.tran.data@gmail.com</a>
-        </div>
-      </section>
+      <div className="wrap">
+        <section className="section">
+          <SectionHead n="01" title="How I work" />
+          <div className="principles">
+            {principles.map((p) => (
+              <div key={p.title} className="principle">
+                <span className={`mark mark-${p.mark}`} aria-hidden="true" />
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="work" className="section">
+          <div className="section-row">
+            <div>
+              <SectionHead n="02" title="Selected work" />
+            </div>
+            <Link href="/projects" className="section-link">
+              All projects →
+            </Link>
+          </div>
+          <ProjectCards limit={4} />
+        </section>
+
+        <section id="writing" className="section">
+          <SectionHead n="03" title="Writing" />
+          <PostTiles />
+        </section>
+
+        <section id="publications" className="section section-last">
+          <SectionHead n="04" title="Publications" />
+          <div className="pubs">
+            {publications.map((p) => (
+              <div key={p.title} className="pub">
+                <span className="pub-year mono">{p.year}</span>
+                <div>
+                  {p.doi ? (
+                    <a href={`https://doi.org/${p.doi}`} className="pub-title">
+                      {p.title}
+                    </a>
+                  ) : (
+                    <p className="pub-title">{p.title}</p>
+                  )}
+                  <p className="pub-venue">{p.venue}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </>
   );
 }

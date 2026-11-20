@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { posts } from "@/content";
+import { Band, Tags } from "../ui";
 
 export const postBySlug = (slug: string) => posts.find((p) => p.slug === slug)!;
 
@@ -20,24 +21,24 @@ export function Post({
   const post = postBySlug(slug);
   return (
     <>
-      <div className="grid page-head" style={{ borderBottom: "1px solid var(--rule)" }}>
-        <p className="head-meta mono">
-          {post.date}
-          <br />
-          {post.readingTime}
-        </p>
-        <div>
-          <h1 className="title">{post.title}</h1>
-          <p className="dek">{post.summary}</p>
+      <Band>
+        <div className="page-head">
+          <p className="post-meta mono">
+            <Tags tags={post.tags} />
+            <span>
+              {post.date} · {post.readingTime} read
+            </span>
+          </p>
+          <h1 className="page-title">{post.title}</h1>
+          <p className="page-dek">{post.summary}</p>
         </div>
-      </div>
-      <div className="grid" style={{ paddingTop: 48 }}>
+      </Band>
+      <div className="wrap post-grid">
         <nav className="toc" aria-label="On this page">
-          <span className="label" style={{ marginBottom: 4 }}>
-            Contents
-          </span>
-          {sections.map(([id, label]) => (
+          <span className="toc-label mono">Contents</span>
+          {sections.map(([id, label], i) => (
             <a key={id} href={`#${id}`}>
+              <span className="mono">{String(i + 1).padStart(2, "0")}</span>
               {label}
             </a>
           ))}

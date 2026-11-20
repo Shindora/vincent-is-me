@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     return [
       { source: "/blog", destination: "/writing", permanent: true },
       { source: "/analytics", destination: "/visitors", permanent: true },
-      { source: "/projects", destination: "/#work", permanent: true },
       { source: "/publications", destination: "/#publications", permanent: true },
     ];
   },
