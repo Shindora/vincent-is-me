@@ -55,6 +55,10 @@ export default function Qod() {
         masked to <code>***</code> and only one market segment’s rows. <code>acme-admin</code> runs the same query and
         sees everything. A table nobody granted to alice is refused.
       </p>
+      <p>
+        To go further, follow the <a href="https://qod.starlake.ai/getting-started/quickstart">quickstart</a>. The code
+        is on <a href="https://github.com/starlake-ai/qod">GitHub</a> under Apache-2.0.
+      </p>
 
       <h2 id="governance">Security decided inside the engine</h2>
       <ul>
